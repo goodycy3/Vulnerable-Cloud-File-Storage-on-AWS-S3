@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud File Storage</title>
+    <!-- Bootstrap CSS link (you can replace this with your own local CSS file) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Custom CSS (place this in your local CSS file if you have one) -->
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        .file-upload-btn {
+            margin-top: 10px;
+        }
+
+        .file-list-item {
+            margin-top: 5px;
+            list-style-type: none;
+        }
+
+        .success-message {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-3">Cloud File Storage</h1>
+        <!-- Display success message if file is successfully uploaded -->
+        {% if success_message %}
+            <div class="success-message">{{ success_message }}</div>
+        {% endif %}
+        <!-- Display error message if there's an error during file upload -->
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+        <div class="mb-3">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                    <input type="file" class="form-control" name="file" accept=".txt, .pdf, .docx">
+                    <button type="submit" class="btn btn-primary file-upload-btn">Upload</button>
+                </div>
+            </form>
+        </div>
+
+        <h2>Uploaded Files</h2>
+        <ul class="list-group">
+            <!-- Use Flask template code to loop through the uploaded files -->
+            {% for filename in uploaded_files %}
+                <li class="list-group-item file-list-item">
+                    <a href="/download/{{ filename }}">{{ filename }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (you can replace these with your own local files if needed) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
